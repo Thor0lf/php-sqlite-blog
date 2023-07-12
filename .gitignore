@@ -7,6 +7,10 @@
 .env
 .env.*
 
+# Base de données SQLite
+data.db
+
+
 # Fichiers de cache et de logs
 /cache/
 /logs/
