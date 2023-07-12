@@ -1,0 +1,20 @@
+{
+    "name": "php-sqlite-blog/thor0lf",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Thor0lf"
+        }
+    ],
+    "require": {
+        "altorouter/altorouter": "^2.0",
+        "symfony/var-dumper": "^6.3",
+        "phpmailer/phpmailer": "^6.8",
+        "vlucas/phpdotenv": "^5.5",
+        "cloudinary/cloudinary_php": "^2"
+    }
+}
