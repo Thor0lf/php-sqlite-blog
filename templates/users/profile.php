@@ -17,8 +17,6 @@ $updateUserForm->validateForm();
 $updateUserForm->processForm();
 
 ?>
-<?php dump($_SERVER) ?>
-<?php dump($_SESSION) ?>
 
 <?php if ($user->email === $_SESSION['auth_email']): ?>
 

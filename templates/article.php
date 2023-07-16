@@ -25,12 +25,6 @@ $category = $db->getCategoryById($article->category_id);
 $pageTitle = "$category->name - $article->title";
 $keywords = $article->metadata;
 
-/*TODO*/
-/* if ($db->getArticleById($articleId) === null ) {
-    header('Location: /404');
-    exit();
-} */
-
 $currentPage = htmlentities($_GET['page'] ?? 1) ;
 $articlesPerPage = 9;
 

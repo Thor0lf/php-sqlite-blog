@@ -9,8 +9,8 @@ $pageTitle = "Mot de passe oublié";
 $emailSender = new ForgotPassword();
 $emailSender->sendPasswordResetEmail();
 ?>
-<?php dump($_SERVER) ?>
-<?php dump($_SESSION) ?>
+
+
 <div class="container">
     <div class="col-md-4 mx-auto my-3">
         <div class="card text-center">

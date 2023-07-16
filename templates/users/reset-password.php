@@ -12,8 +12,6 @@ $newPasswordForm->processForm();
 
 ?>
 
-<?php dump($_SERVER) ?>
-<?php dump($_SESSION) ?>
 <?php if ($newPasswordForm->getError()): ?>
     <div class="alert alert-danger">
         <?= $newPasswordForm->getError() ?>

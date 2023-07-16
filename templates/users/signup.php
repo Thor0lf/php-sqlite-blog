@@ -12,8 +12,6 @@ $registrationForm->processForm();
 
 ?>
 
-<?php dump($_SERVER) ?>
-<?php dump($_SESSION) ?>
 <?php if ($registrationForm->getError()): ?>
     <div class="alert alert-danger">
         <?= $registrationForm->getError() ?>

@@ -12,9 +12,3 @@ $pageTitle = "Erreur 404";
     <p>Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur du site.</p>
     <p>En attendant, vous pouvez retourner à <a href="/">la page d'accueil</a> et continuer votre navigation.</p>
 </div>
-
-
-
-
-<?php dump($_SERVER) ?>
-<?php dump($_SESSION) ?>

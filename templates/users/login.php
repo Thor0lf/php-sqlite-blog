@@ -25,9 +25,6 @@ if (empty($referer) || $referer == '/login') {
 
 ?>
 
-<?php dump($_SERVER) ?>
-<?php dump($_SESSION) ?>
-
     <?php if (isset($_GET['forbid'])): ?>
         <div class="alert alert-danger">
             Accès interdit

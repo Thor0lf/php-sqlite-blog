@@ -157,7 +157,3 @@ if ((($_GET['page']) ?? '') < 2 && $articles !== null) {
     <a href="?page=<?= $totalPages ?>" class="btn btn-outline-primary">Dernière &raquo;</a>
   <?php endif ?>
 </div>
-
-
-<?php dump($_COOKIE) ?>
-<?php dump($_SESSION) ?>

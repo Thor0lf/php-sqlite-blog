@@ -10,8 +10,7 @@
     $formHandler = new ContactFormHandler();
     $formHandler->handleFormSubmission();
 ?>
-<?php dump($_SERVER) ?>
-<?php dump($_SESSION) ?>
+
     <?php if ($formHandler->getError()): ?>
         <div class="alert alert-danger">
             <?= $formHandler->getError() ?>
