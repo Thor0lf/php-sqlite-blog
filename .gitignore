@@ -8,8 +8,7 @@
 .env.*
 
 # Base de données SQLite
-data.db
-
+*.db
 
 # Fichiers de cache et de logs
 /cache/

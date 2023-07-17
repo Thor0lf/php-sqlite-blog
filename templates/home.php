@@ -42,6 +42,18 @@ if ((($_GET['page']) ?? '') < 2 && $articles !== null) {
 
 ?>
 
+<?php if (!$articles): ?>
+    <div class="d-flex justify-content-center">
+      <div class="card text-bg-warning text-center col-8 mb-3">
+        <div class="card-header">Information</div>
+        <div class="card-body">
+          <h5 class="card-title">Aucun article présent</h5>
+          <p class="card-text">Faites briller votre site web en écrivant des articles savoureux ! Remplissez-le de contenu alléchant pour captiver vos visiteurs et les faire revenir en redemandant. Alors, sortez votre plume créative et régalez-nous avec vos articles délicieux !</p>
+        </div>
+      </div>
+    </div>
+  <?php endif ?>
+
 <?php if ((($_GET['page']) ?? '') < 2): ?>
   <!-- Carousel -->
   <?php if (isset($articlesCarousel)): ?>
@@ -86,21 +98,11 @@ if ((($_GET['page']) ?? '') < 2 && $articles !== null) {
       <span class="visually-hidden">Suivant</span>
     </button>
   </div>
-  <?php else: ?>
-    <div class="d-flex justify-content-center">
-      <div class="card text-bg-warning text-center col-8 mb-3">
-        <div class="card-header">Information</div>
-        <div class="card-body">
-          <h5 class="card-title">Aucun article présent</h5>
-          <p class="card-text">Faites briller votre site web en écrivant des articles savoureux ! Remplissez-le de contenu alléchant pour captiver vos visiteurs et les faire revenir en redemandant. Alors, sortez votre plume créative et régalez-nous avec vos articles délicieux !</p>
-        </div>
-      </div>
-    </div>
   <?php endif ?>
 <?php endif ?>
 
-  <!-- Articles list -->
-  <?php if (isset($articles)): ?>
+<!-- Articles list -->
+<?php if (isset($articles)): ?>
 
 <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
   <?php foreach ($articles as $article) : ?>

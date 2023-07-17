@@ -15,7 +15,7 @@ class Database {
     public static function getPDO(): PDO
     {
         if (!self::$pdo) {
-            self::$pdo = new PDO("sqlite:../data.db", null, null, [
+            self::$pdo = new PDO("sqlite:../test.db", null, null, [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             ]);
@@ -236,7 +236,8 @@ class Database {
 
     // Get an article from the database by its ID
     public function getArticleById($articleId): ?Article
-    {    
+    {   
+        self::createTableArticles(); 
         $query = self::$pdo->prepare("SELECT * FROM articles WHERE id = :id");
         $query->bindParam(':id', $articleId);
         $query->execute();

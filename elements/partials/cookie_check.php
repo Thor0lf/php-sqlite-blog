@@ -3,7 +3,7 @@
 // Check if the cookie exists
 if (!isset($_COOKIE['cookieConsent']) || $_COOKIE['cookieConsent'] !== 'ok') {
     echo '<script>
-    // Fonction pour ouvrir automatiquement l\'offcanvas au chargement de la page
+    // To open the offcanvas of Bootstrap when the page is loading
     window.onload = function() {
         var myOffcanvas = new bootstrap.Offcanvas(document.getElementById(\'offcanvasWithBothOptions\'));
         myOffcanvas.show();

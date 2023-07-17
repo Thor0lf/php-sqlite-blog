@@ -208,6 +208,3 @@ if (isset($_GET['del'])) {
     </section>
     <?php endif ?>
 </section>
-
-<?php dump($_SERVER) ?>
-<?php dump($_SESSION) ?>

@@ -115,19 +115,15 @@ class Auth {
     {
         if (isset($_SESSION['auth_token']) && isset($_SESSION['auth_expiration'])) {
             $expiration = $_SESSION['auth_expiration'];
-                if (time() > $expiration) {
-                FlashMessage::setFlashMessage("Veuillez vous reconnecter.", 'warning');
-                $messageFlash = $_SESSION['flash_message'];
-                $typeFlash = $_SESSION['flash_type'];
+            if (time() > $expiration) {
                 if (session_status() === PHP_SESSION_ACTIVE) {
                     session_destroy();
                 }
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
+                FlashMessage::setFlashMessage("Veuillez vous reconnecter.", 'warning');
                 header("Location: /login");
-                $_SESSION['flash_message'] = $messageFlash;
-                $_SESSION['flash_type'] = $typeFlash;
                 exit();
             }
         }
@@ -142,5 +138,18 @@ class Auth {
             header("Location: /403");
             exit();
         }
+    }
+
+    public function logout(): void
+    {
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        FlashMessage::setFlashMessage('Vous êtes bien déconnecté !', 'success');
+        header('Location: /login');
+        exit();
     }
 }
