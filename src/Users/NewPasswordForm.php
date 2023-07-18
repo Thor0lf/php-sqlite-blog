@@ -1,8 +1,9 @@
 <?php 
 
-namespace App;
+namespace App\Users;
+use App\Database\Database;
+use App\Helpers\FlashMessage;
 
-use App\Database;
 
 class NewPasswordForm {
     private $error;

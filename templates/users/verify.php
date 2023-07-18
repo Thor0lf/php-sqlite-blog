@@ -1,5 +1,5 @@
 <?php
-use App\VerifyUser;
+use App\Users\VerifyUser;
 
 require ('../vendor/autoload.php');
 

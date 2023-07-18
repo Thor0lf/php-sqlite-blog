@@ -1,8 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Users;
 
-use App\Functions;
+use App\Database\Database;
+use App\Helpers\FlashMessage;
+use App\Helpers\Helpers;
+use App\Models\User;
 use Dotenv\Dotenv;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -17,7 +20,7 @@ class ForgotPassword {
     {
         $this->pdo = Database::getPDO();
         $this->email = $_POST['email'] ?? '';
-        $this->token = Functions::generateToken();
+        $this->token = Helpers::generateToken();
     }
 
     // Handle the password reset request, validate the form inputs, send a password reset email if validation passes,

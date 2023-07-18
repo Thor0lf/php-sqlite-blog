@@ -1,5 +1,5 @@
 <?php 
-use App\Router;
+use App\Routes\Router;
 $router = new Router(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'templates');
 $router
     ->get('/', 'home', 'home')

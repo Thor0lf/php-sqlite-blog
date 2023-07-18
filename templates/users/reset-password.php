@@ -1,6 +1,5 @@
 <?php
-
-use App\NewPasswordForm;
+use App\Users\NewPasswordForm;
 
 require '../vendor/autoload.php';
 

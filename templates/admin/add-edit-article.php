@@ -1,7 +1,6 @@
 <?php
-
-use App\AddEditArticle;
-use App\Database;
+use App\Admin\AddEditArticle;
+use App\Database\Database;
 
 require ('../vendor/autoload.php');
 
@@ -9,7 +8,7 @@ $user = Database::getAuth()->user();
 
 Database::getAuth()->requireRole('admin');
 
-$addEditArticle = new AddEditArticle;
+$addEditArticle = new AddEditArticle();
 $addEditArticle->validateForm();
 $addEditArticle->processForm();
 

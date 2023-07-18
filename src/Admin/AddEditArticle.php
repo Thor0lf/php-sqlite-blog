@@ -1,6 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Admin;
+
+use App\Database\Database;
+use App\Helpers\FlashMessage;
 use PDO;
 
 class AddEditArticle {

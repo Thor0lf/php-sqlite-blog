@@ -1,8 +1,8 @@
 <?php 
+use App\Helpers\FlashMessage;
 require 'partials/head.php';
 include 'partials/cookie_check.php';
 require 'partials/navigation.php'; 
-use App\FlashMessage;
 ?>
 
 <div class="container mt-4">

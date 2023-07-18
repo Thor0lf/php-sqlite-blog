@@ -1,6 +1,5 @@
 <?php
-
-use App\ForgotPassword;
+use App\Users\ForgotPassword;
 
 require '../vendor/autoload.php';
 

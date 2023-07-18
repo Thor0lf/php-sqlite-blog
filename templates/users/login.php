@@ -1,6 +1,5 @@
 <?php
-
-use App\Database;
+use App\Database\Database;
 
 require '../vendor/autoload.php';
 

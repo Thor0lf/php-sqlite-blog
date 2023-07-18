@@ -1,7 +1,9 @@
 <?php
 
 
-namespace App;
+namespace App\Admin;
+use App\Database\Database;
+use App\Helpers\FlashMessage;
 
 class AddEditCategory {
 

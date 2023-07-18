@@ -1,7 +1,6 @@
 <?php 
     
     use App\ContactFormHandler;
-    use App\Database;
 
     require '../vendor/autoload.php';
     

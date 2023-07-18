@@ -1,8 +1,7 @@
 <?php
-
-use App\CategoriesListing;
-use App\Database;
-use App\UsersListing;
+use App\Admin\CategoriesListing;
+use App\Admin\UsersListing;
+use App\Database\Database;
 
 $auth = Database::getAuth();
 $user = $auth->user();

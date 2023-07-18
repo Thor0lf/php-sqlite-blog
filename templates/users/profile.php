@@ -1,7 +1,6 @@
 <?php 
-
-use App\Database;
-use App\ModifyProfileUser;
+use App\Database\Database;
+use App\Users\ModifyProfileUser;
 
 require '../vendor/autoload.php';
 

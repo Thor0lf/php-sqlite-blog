@@ -1,6 +1,5 @@
 <?php
-
-use App\RegistrationForm;
+use App\Users\RegistrationForm;
 
 require '../vendor/autoload.php';
 

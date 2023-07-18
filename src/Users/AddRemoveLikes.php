@@ -1,6 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Users;
+use App\Database\Database;
 use PDOException;
 
 Class AddRemoveLikes {

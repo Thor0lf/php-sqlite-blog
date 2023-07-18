@@ -1,7 +1,6 @@
 <?php
-
-use App\Database;
-use App\DeleteUser;
+use App\Database\Database;
+use App\Users\DeleteUser;
 
 require ('../vendor/autoload.php');
 

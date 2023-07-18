@@ -1,9 +1,11 @@
 <?php 
 
-namespace App;
+namespace App\Users;
 
-use App\Database;
-use App\Functions;
+
+use App\Database\Database;
+use App\Helpers\FlashMessage;
+use App\Helpers\Helpers;
 use Dotenv\Dotenv;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -28,7 +30,7 @@ class RegistrationForm {
         $this->password = $_POST['password'] ?? null;
         $this->confirmPassword = $_POST['confirm_password'] ?? null;
         $this->database = new Database();
-        $this->token = Functions::generateToken();
+        $this->token = Helpers::generateToken();
         $this->role;
         $this->createdAt = date('Y-m-d H:i:s');
         $this->updatedAt = $this->createdAt;

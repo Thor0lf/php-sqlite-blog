@@ -1,10 +1,9 @@
 <?php 
-
-use App\AddEditComment;
-use App\AddRemoveLikes;
 use App\CommentsListing;
-use App\Database;
-use App\Functions;
+use App\Database\Database;
+use App\Helpers\Helpers;
+use App\Users\AddEditComment;
+use App\Users\AddRemoveLikes;
 
 require '../vendor/autoload.php';
 
@@ -17,7 +16,7 @@ $addEditComment->validateForm();
 $addEditComment->processForm();
 $referer = $_SERVER['REQUEST_URI'];
 
-$articleId = $_GET['id'] ?? null;
+$articleId = (int)($_GET['id'] ?? null);
 
 $db = new Database();
 $article = $db->getArticleById($articleId);
@@ -25,16 +24,24 @@ $category = $db->getCategoryById($article->category_id);
 $pageTitle = "$category->name - $article->title";
 $keywords = $article->metadata;
 
-$currentPage = htmlentities($_GET['page'] ?? 1) ;
-$articlesPerPage = 9;
+if ($articleId === null || !$article) {
+    header('Location: /404');
+}
 
-$functions = new Functions();
+$currentPage = (int)($_GET['page'] ?? 1) ;
+$commentsPerPage = 6;
+
+$functions = new Helpers();
 
 // Get all the comments of the article with pagination
-$commentsListing = new CommentsListing($currentPage, $articlesPerPage);
-$comments = $commentsListing->getAllCommentsByArticle($article->id);
+$commentsListing = new CommentsListing($currentPage, $commentsPerPage);
+$comments = $commentsListing->getAllComments();
 $totalComments = $commentsListing->getTotalComments();
 $totalPages = $commentsListing->getTotalPages();
+
+if ($currentPage <= 0 || $currentPage > $totalPages) {
+    header('Location: /404');
+}
 
 $likes = new AddRemoveLikes();
 $likes->ProcessForm();
@@ -167,25 +174,7 @@ if (isset($_GET['del'])) {
 
 <!-- Pagination -->
 <?php if ($comments): ?>
-<div class="d-flex justify-content-center mb-3">
-  <?php if ($currentPage > 1): ?>
-    <a href="?page=1" class="btn btn-outline-primary me-2">&laquo; Première</a>
-    <a href="?page=<?= $currentPage - 1 ?>" class="btn btn-outline-primary me-2">&lsaquo; Précédente</a>
-  <?php endif ?>
-
-  <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-    <?php if ($i == $currentPage): ?>
-        <a href="?page=<?= $i ?>" class="btn btn-outline-danger disabled me-2"><?= $i ?></a>
-    <?php else: ?>
-      <a href="?page=<?= $i ?>" class="btn btn-outline-primary me-2"><?= $i ?></a>
-    <?php endif ?>
-  <?php endfor ?>
-
-  <?php if ($currentPage < $totalPages): ?>
-    <a href="?page=<?= $currentPage + 1 ?>" class="btn btn-outline-primary me-2">Suivante &rsaquo;</a>
-    <a href="?page=<?= $totalPages ?>" class="btn btn-outline-primary">Dernière &raquo;</a>
-  <?php endif ?>
-</div>
+    <?php require 'parts/pagination.php' ?>
 <?php endif ?>
 
     <hr class="mt-5 mb-3">

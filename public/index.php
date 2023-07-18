@@ -1,6 +1,6 @@
 <?php 
-use App\Database;
-use App\Router;
+use App\Database\Database;
+use App\Routes\Router;
 
 require '../vendor/autoload.php';
 

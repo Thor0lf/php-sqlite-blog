@@ -1,7 +1,6 @@
 <?php
-
-use App\AddEditCategory;
-use App\Database;
+use App\Admin\AddEditCategory;
+use App\Database\Database;
 
 require ('../vendor/autoload.php');
 

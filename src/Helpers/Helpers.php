@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Helpers;
 
 use DateTime;
 
-class Functions {
+class Helpers {
 
     // Get a formatted date for the view
     public function getFormattedDate($dateToFormat)

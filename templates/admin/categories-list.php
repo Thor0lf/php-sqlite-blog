@@ -1,9 +1,8 @@
 <?php
+use App\Admin\CategoriesListing;
+use App\Database\Database;
 
 require '../vendor/autoload.php';
-
-use App\Database;
-use App\CategoriesListing;
 
 Database::getAuth()->requireRole('admin');
 
@@ -93,22 +92,4 @@ $articlesCount = new Database();
   </div>
 
 <!-- Pagination -->
-<div class="d-flex justify-content-center mb-3">
-  <?php if ($currentPage > 1): ?>
-    <a href="?page=1" class="btn btn-outline-primary me-2">&laquo; Première</a>
-    <a href="?page=<?= $currentPage - 1 ?>" class="btn btn-outline-primary me-2">&lsaquo; Précédente</a>
-  <?php endif ?>
-
-  <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-    <?php if ($i == $currentPage): ?>
-        <a href="?page=<?= $i ?>" class="btn btn-outline-danger disabled me-2"><?= $i ?></a>
-    <?php else: ?>
-      <a href="?page=<?= $i ?>" class="btn btn-outline-primary me-2"><?= $i ?></a>
-    <?php endif ?>
-  <?php endfor ?>
-
-  <?php if ($currentPage < $totalPages): ?>
-    <a href="?page=<?= $currentPage + 1 ?>" class="btn btn-outline-primary me-2">Suivante &rsaquo;</a>
-    <a href="?page=<?= $totalPages ?>" class="btn btn-outline-primary">Dernière &raquo;</a>
-  <?php endif ?>
-</div>
+<?php require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'parts/pagination.php' ?>

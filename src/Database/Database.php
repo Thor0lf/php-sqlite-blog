@@ -1,7 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Database;
 
+use App\Auth\Auth;
+use App\Models\Article;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\User;
 use PDO;
 use PDOException;
 
@@ -15,7 +20,7 @@ class Database {
     public static function getPDO(): PDO
     {
         if (!self::$pdo) {
-            self::$pdo = new PDO("sqlite:../test.db", null, null, [
+            self::$pdo = new PDO("sqlite:../data.db", null, null, [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             ]);

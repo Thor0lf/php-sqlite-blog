@@ -1,7 +1,6 @@
 <?php
-
-use App\ChangePassword;
-use App\Database;
+use App\Database\Database;
+use App\Users\ChangePassword;
 
 require ('../vendor/autoload.php');
 

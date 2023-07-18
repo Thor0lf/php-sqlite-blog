@@ -1,7 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Auth;
 
+use App\Helpers\FlashMessage;
+use App\Models\User;
 use PDO;
 
 class Auth {
