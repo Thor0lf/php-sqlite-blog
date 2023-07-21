@@ -127,6 +127,43 @@ $(document).ready(function() {
 
     /* Resize textarea comment END */
 
+/* Order tables BEGIN */
+
+const compare = function(ids, asc){
+    return function(row1, row2){
+      const tdValue = function(row, ids){
+        return row.children[ids].textContent;
+      }
+      const tri = function(v1, v2){
+        if (v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2)){
+          return v1 - v2;
+        }
+        else {
+          return v1.toString().localeCompare(v2);
+        }
+        return v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2);
+      };
+      return tri(tdValue(asc ? row1 : row2, ids), tdValue(asc ? row2 : row1, ids));
+    }
+  }
+
+  const tbody = document.querySelector('tbody');
+  const thx = document.querySelectorAll('th');
+  if (tbody) {
+    const trxb = tbody.querySelectorAll('tr');
+    thx.forEach(function(th){
+      th.addEventListener('click', function(){
+        let tableRow = Array.from(trxb).sort(compare(Array.from(thx).indexOf(th), this.asc = !this.asc));
+        tableRow.forEach(function(tr){
+          tbody.appendChild(tr)
+        });
+      })
+    });
+  }
+  
+  /* Order tables END */
+
+  /* Scroll to the top BEGIN */
     window.addEventListener('scroll', function() {
         var button = document.querySelector('.back-to-top');
         if (window.pageYOffset > 100) {
@@ -135,3 +172,5 @@ $(document).ready(function() {
           button.style.display = 'none';
         }
     });
+
+    /* Scroll to the top END */ 

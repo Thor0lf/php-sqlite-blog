@@ -4,6 +4,7 @@ namespace App\Admin;
 
 use App\Database\Database;
 use App\Helpers\FlashMessage;
+use Intervention\Image\ImageManagerStatic as Image;
 use PDO;
 
 class AddEditArticle {
@@ -43,9 +44,9 @@ class AddEditArticle {
     // Method to validate form data
     public function validateForm(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_article'])) {
             switch (true) {
-                case empty($this->categoryId):
+                case empty($this->categoryId) || $this->categoryId == null:
                     $this->error = "La catégorie est manquante.";
                     break; 
                 case empty($this->title) || empty($this->content) || empty($this->metadata):
@@ -57,7 +58,7 @@ class AddEditArticle {
                 case strlen($this->title) > 250:
                     $this->error = "Le titre est trop long.";
                     break;
-                case strlen($this->content) < 3:
+                case strlen($this->content) < 180:
                     $this->error = "Le contenu est trop court.";
                     break;
                 case strlen($this->metadata) < 3:
@@ -97,31 +98,78 @@ class AddEditArticle {
     // Method to process form data and perform file upload
     public function processForm() 
     {
-            // Check if it is a modification of an article without changing the title image
-            if ($this->id && empty($_FILES['formFile']['name'])) {
+        // Check if it is a modification of an article without changing the title image
+        if ($this->id && empty($_FILES['formFile']['name'])) {
             $this->formFile = $this->getArticle()->formFile;
         } else {
             // Destination path for the title image
-            $uploadDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'uploads';
-            $uploadFile = $uploadDir . DIRECTORY_SEPARATOR . basename($this->formFile);
-            if ($this->getArticle()) {
+            $uploadDir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'uploads';
+            $mobileResolutionDir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'mobile_resolution';
+    
+            // Create folders for images if they do not exist.
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+            if (!file_exists($mobileResolutionDir)) {
+                mkdir($mobileResolutionDir, 0755, true);
+            }
+    
+            // Verify if a new image is uploading
+            if (isset($_FILES['formFile']['name'])) {
+    
+                $sourceFile = $_FILES['formFile']['tmp_name'];
+                $originalFileName = $_FILES['formFile']['name'];
+    
+                // Check if the file is readable
+                if (!is_readable($sourceFile)) {
+                    $this->error = "L'image est manquante ou ne peux être lue.";
+                    return;
+                }
+
+                // Generate an unique filename
+                $fileName = uniqid() . '-' . $originalFileName;
+    
+                // Move the downloaded file to the destination folder
+                move_uploaded_file($sourceFile, $uploadDir . DIRECTORY_SEPARATOR . $fileName);
+                // Resize and convert the images to WebP format
+                $highResolutionImage = Image::make($uploadDir . DIRECTORY_SEPARATOR . $fileName)->resize(1280, 720)->encode('webp', 100);
+                $highResolutionImage->save($uploadDir . DIRECTORY_SEPARATOR . pathinfo($fileName, PATHINFO_FILENAME) . '.webp');
+
+                $mobileResolutionImage = Image::make($uploadDir . DIRECTORY_SEPARATOR . $fileName)->resize(640, 360)->encode('webp', 80);
+                $mobileResolutionImage->save($mobileResolutionDir . DIRECTORY_SEPARATOR . pathinfo($fileName, PATHINFO_FILENAME) . '.webp');
+
+                // Delete the temporary image
+                unlink($uploadDir . DIRECTORY_SEPARATOR . $fileName);
+                
+                // Use the unique filename to save it in the database
+                $this->formFile = pathinfo($fileName, PATHINFO_FILENAME) . '.webp';
+            }
+    
+            // Delete the old image if it is an article update and a new image is uploaded
+            if ($this->id && !empty($_FILES['formFile']['name'])) {
                 $uploadedOldFile = $uploadDir . DIRECTORY_SEPARATOR . basename($this->getArticle()->formFile);
-                // Delete the old title image
                 if (file_exists($uploadedOldFile)) {
                     if (unlink($uploadedOldFile)) {
-                        unlink($uploadedOldFile);
                     } else {
                         $this->error = "Une erreur s'est produite lors de la suppression de l'image.";
                     }
                 } else {
                     $this->error = "L'image n'existe pas.";
                 }
+                $uploadedOldMobileFile = $mobileResolutionDir . DIRECTORY_SEPARATOR . basename($this->getArticle()->formFile);
+                if (file_exists($uploadedOldMobileFile)) {
+                    if (unlink($uploadedOldMobileFile)) {
+                    } else {
+                        $this->error = "Une erreur s'est produite lors de la suppression de l'image mobile.";
+                    }
+                } else {
+                    $this->error = "L'image mobile n'existe pas.";
+                }
             }
-            // Move the temp file to the final destination
-            move_uploaded_file($_FILES['formFile']['tmp_name'] ?? '', $uploadFile);
         }
+
         if (!$this->error && isset($this->title, $this->content, $this->metadata, $this->userId, $this->categoryId, $this->createdAt, $this->updatedAt)) {
-            if ($_GET['id']) {
+            if (isset($_GET['id'])) {
                 $this->database->modifyArticle($this->id, $this->title, $this->content, $this->formFile, $this->metadata, $this->userId, $this->categoryId, $this->updatedAt);
                 FlashMessage::setFlashMessage("L'article [''$this->title''] a bien été modifié !", 'success');
             } else {
@@ -163,15 +211,27 @@ class AddEditArticle {
     {
         $article = $this->database->getArticleById($this->deleteId);
         if ($article) {
-            $uploadDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'uploads';
-            $uploadedOldFile = $uploadDir . DIRECTORY_SEPARATOR . basename($article->formFile);
-            if (file_exists($uploadedOldFile)) {
-                if (unlink($uploadedOldFile)) {
+            // Delete the images with the article
+            $uploadDir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'uploads';
+            $mobileResolutionDir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'mobile_resolution';
+
+            $uploadedFile = $uploadDir . DIRECTORY_SEPARATOR . $article->formFile;
+            if (file_exists($uploadedFile)) {
+                if (unlink($uploadedFile)) {
                 } else {
                     $this->error = "Une erreur s'est produite lors de la suppression de l'image.";
                 }
             } else {
                 $this->error = "L'image n'existe pas.";
+            }
+            $uploadedMobileFile = $mobileResolutionDir . DIRECTORY_SEPARATOR . $article->formFile;
+            if (file_exists($uploadedMobileFile)) {
+                if (unlink($uploadedMobileFile)) {
+                } else {
+                    $this->error = "Une erreur s'est produite lors de la suppression de l'image mobile.";
+                }
+            } else {
+                $this->error = "L'image mobile n'existe pas.";
             }
         }
         $this->database->deleteArticle($this->deleteId);

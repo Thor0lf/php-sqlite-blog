@@ -55,9 +55,9 @@ $categories = $addEditArticle->getCategory();
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="form-group mb-2">
                         <select class="form-control" name="category_id" required>
-                            <option <?php if (!isset($_GET['id'])) echo 'selected' ?>>Catégorie</option>
+                            <option value="" <?php if (!isset($_GET['id'])) echo 'selected' ?>>Catégorie</option>
                             <?php foreach ($categories as $category) : ?>
-                                <option value="<?= htmlentities($category['id']) ?>" <?php if (isset($_GET['id']) && $article->category_id === $_GET['id']) echo 'selected' ?>><?= htmlentities($category['name']); ?></option>
+                                <option value="<?= htmlentities($category['id']) ?>" <?= isset($_GET['id']) && $article->category_id == $category['id'] ? 'selected' : '' ?>><?= htmlentities($category['name']); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -88,7 +88,7 @@ $categories = $addEditArticle->getCategory();
                     <div class="preview-images w-25 mb-3">
                     </div>
                     <div class="form-group text-center">
-                        <button class="btn btn-primary btn-block" type="submit">
+                        <button class="btn btn-primary btn-block" name="send_article" type="submit">
                             Enregistrer l'article
                         </button>
                     </div>

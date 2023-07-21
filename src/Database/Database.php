@@ -28,6 +28,11 @@ class Database {
         return self::$pdo;
     }
 
+    public static function setPDO($pdo)
+    {
+        self::$pdo = $pdo;
+    }
+
     // Return an Auth instance for user authentication
     public static function getAuth(): Auth
     {
@@ -146,7 +151,7 @@ class Database {
     }
 
     // Insert a new category into the database
-    public function insertCategory($name, $createdAt, $updatedAt): void
+    public function insertCategory($name, $createdAt, $updatedAt)
     {
         $query = self::$pdo->prepare("INSERT INTO categories (name, created_at, updated_at) VALUES (?, :created_at, :updated_at)");
         $query->execute([
@@ -186,7 +191,7 @@ class Database {
     }
 
     // Modify a category
-    public function modifyCategory($id, $name, $updatedAt): void
+    public function modifyCategory($id, $name, $updatedAt)
     {
         $query = self::$pdo->prepare('UPDATE categories SET name = :name, updated_at = :updated_at WHERE id = :id');
         $query->execute([
@@ -197,7 +202,7 @@ class Database {
     }
 
     // Delete a category
-    public function deleteCategory($id): void
+    public function deleteCategory($id)
     {
         $query = self::$pdo->prepare('DELETE FROM categories WHERE id = :id');
         $query->execute([
@@ -224,7 +229,7 @@ class Database {
     }
 
     // Insert a new article into the database
-    public function insertArticle($title, $content, $metadata, $formFile, $userId, $categoryId, $createdAt, $updatedAt): void
+    public function insertArticle($title, $content, $metadata, $formFile, $userId, $categoryId, $createdAt, $updatedAt)
     {
         $query = self::$pdo->prepare("INSERT INTO articles (title, content, formFile, metadata, user_id, category_id, created_at, updated_at) VALUES (?, ?, ?, ?, :user_id, :category_id, :created_at, :updated_at)");
         $query->execute([
@@ -305,7 +310,7 @@ class Database {
     }
 
     // Insert a new comment into the database
-    public function insertComment($comment, $userId, $articleId, $categoryId, $createdAt, $updatedAt): void
+    public function insertComment($comment, $userId, $articleId, $categoryId, $createdAt, $updatedAt)
     {
         $query = self::$pdo->prepare("INSERT INTO comments (comment, user_id, article_id, category_id, created_at, updated_at) VALUES (?, :user_id, :article_id, :category_id, :created_at, :updated_at)");
         $query->execute([

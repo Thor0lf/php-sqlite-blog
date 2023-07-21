@@ -9,7 +9,7 @@ Database::getAuth()->requireRole('admin');
 $pageTitle = "Liste des articles";
 
 $currentPage = htmlentities($_GET['page'] ?? 1) ;
-$articlesPerPage = 10;
+$articlesPerPage = 6;
 
 $articlesListing = new ArticlesListing($currentPage, $articlesPerPage);
 $articles = $articlesListing->getAllArticles();

@@ -28,10 +28,6 @@ a {
     color: #0051ff;
 }
 
-.fa-solid.fa-cookie {
-    color: #fddf8b;
-}
-
 .fa-solid.fa-trash {
     color: #ff0000;
 }
@@ -84,11 +80,24 @@ a {
     margin-bottom: 9px;
 }
 
+
+.fa-solid.fa-cookie {
+    color: #ecce7a99;
+}
+.fa-solid.fa-cookie:hover {
+    color: #ecce7a;
+}
 .btn-cookie {
     display: block;
     position: fixed;
     bottom: 10px;
     left: 10px;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    padding: 0 0 1px 0;
+    
     z-index: 9998;
 }
 

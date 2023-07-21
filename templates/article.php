@@ -4,6 +4,7 @@ use App\Database\Database;
 use App\Helpers\Helpers;
 use App\Users\AddEditComment;
 use App\Users\AddRemoveLikes;
+use Detection\MobileDetect;
 
 require '../vendor/autoload.php';
 
@@ -54,6 +55,9 @@ if (isset($_GET['del'])) {
     $addEditComment->deleteComment($deleteId);
 }
 
+// Create a MobileDetect instance
+$detect = new MobileDetect;
+
 ?>
 
 <?php if ($likes->getError()): ?>
@@ -77,7 +81,7 @@ if (isset($_GET['del'])) {
 <section class="container my-5">
     <article class="card">
         <div class="px-lg-5">
-            <img src="/img/uploads/<?= $article->formFile ?>" class="card-img-top px-lg-5" alt="<?= $article->formFile ?>" width="100%" height="100%" />
+            <img src="/img/<?= $detect->isMobile() ? 'mobile_resolution' : 'uploads' ?>/<?= $article->formFile ?>" class="card-img-top px-lg-5" alt="<?= $article->formFile ?>" width="100%" height="100%" />
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-between">

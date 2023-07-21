@@ -15,8 +15,6 @@ class AddEditCategory {
     private $createdAt;
     private $updatedAt;
 
-
-
     public function __construct()
     {
         $this->database = new Database();
@@ -31,7 +29,6 @@ class AddEditCategory {
     // Method to validate form data
     public function validateForm(): void
     {
-        $this->database->createTableArticles();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             switch (true) {
                 case empty($this->name):

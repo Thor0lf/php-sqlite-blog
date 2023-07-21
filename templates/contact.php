@@ -1,6 +1,7 @@
 <?php 
     
     use App\ContactFormHandler;
+    use Detection\MobileDetect;
 
     require '../vendor/autoload.php';
     
@@ -8,6 +9,7 @@
 
     $formHandler = new ContactFormHandler();
     $formHandler->handleFormSubmission();
+
 ?>
 
     <?php if ($formHandler->getError()): ?>
@@ -19,7 +21,7 @@
             <div class="card mb-3 mx-auto" style="max-width: 800px;">
                 <div class="row g-0">
                     <div class="col-md-4 bg-secondary rounded-start">
-                        <img src="/img/contact.jpeg" class="d-none d-md-block img-fluid rounded-start h-100" alt="contact">
+                        <img src="/img/contact.webp" class="d-none d-md-block img-fluid rounded-start h-100" alt="contact">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
