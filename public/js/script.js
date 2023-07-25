@@ -21,7 +21,7 @@ $(document).ready(function() {
             $('#show_hide_password_signup input').attr('type', 'password');
             $('#show_hide_password_signup i').addClass( "fa-eye-slash" );
             $('#show_hide_password_signup i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password_signup input').attr("type") == "password"){
+        } else if($('#show_hide_password_signup input').attr("type") == "password"){
             $('#show_hide_password_signup input').attr('type', 'text');
             $('#show_hide_password_signup i').removeClass( "fa-eye-slash" );
             $('#show_hide_password_signup i').addClass( "fa-eye" );
@@ -37,7 +37,7 @@ $(document).ready(function() {
             $('#show_hide_confirm_password_signup input').attr('type', 'password');
             $('#show_hide_confirm_password_signup i').addClass( "fa-eye-slash" );
             $('#show_hide_confirm_password_signup i').removeClass( "fa-eye" );
-        }else if($('#show_hide_confirm_password_signup input').attr("type") == "password"){
+        } else if($('#show_hide_confirm_password_signup input').attr("type") == "password"){
             $('#show_hide_confirm_password_signup input').attr('type', 'text');
             $('#show_hide_confirm_password_signup i').removeClass( "fa-eye-slash" );
             $('#show_hide_confirm_password_signup i').addClass( "fa-eye" );
@@ -53,7 +53,7 @@ $(document).ready(function() {
             $('#show_hide_password_signin input').attr('type', 'password');
             $('#show_hide_password_signin i').addClass( "fa-eye-slash" );
             $('#show_hide_password_signin i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password_signin input').attr("type") == "password"){
+        } else if($('#show_hide_password_signin input').attr("type") == "password"){
             $('#show_hide_password_signin input').attr('type', 'text');
             $('#show_hide_password_signin i').removeClass( "fa-eye-slash" );
             $('#show_hide_password_signin i').addClass( "fa-eye" );
@@ -68,7 +68,7 @@ $(document).ready(function() {
             $('#show_hide_password_actual_password input').attr('type', 'password');
             $('#show_hide_password_actual_password i').addClass( "fa-eye-slash" );
             $('#show_hide_password_actual_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password_actual_password input').attr("type") == "password"){
+        } else if($('#show_hide_password_actual_password input').attr("type") == "password"){
             $('#show_hide_password_actual_password input').attr('type', 'text');
             $('#show_hide_password_actual_password i').removeClass( "fa-eye-slash" );
             $('#show_hide_password_actual_password i').addClass( "fa-eye" );
@@ -84,7 +84,7 @@ $(document).ready(function() {
             $('#show_hide_password_new_password input').attr('type', 'password');
             $('#show_hide_password_new_password i').addClass( "fa-eye-slash" );
             $('#show_hide_password_new_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password_new_password input').attr("type") == "password"){
+        } else if($('#show_hide_password_new_password input').attr("type") == "password"){
             $('#show_hide_password_new_password input').attr('type', 'text');
             $('#show_hide_password_new_password i').removeClass( "fa-eye-slash" );
             $('#show_hide_password_new_password i').addClass( "fa-eye" );
@@ -100,7 +100,7 @@ $(document).ready(function() {
             $('#show_hide_password_confirm_new_password input').attr('type', 'password');
             $('#show_hide_password_confirm_new_password i').addClass( "fa-eye-slash" );
             $('#show_hide_password_confirm_new_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password_confirm_new_password input').attr("type") == "password"){
+        } else if($('#show_hide_password_confirm_new_password input').attr("type") == "password"){
             $('#show_hide_password_confirm_new_password input').attr('type', 'text');
             $('#show_hide_password_confirm_new_password i').removeClass( "fa-eye-slash" );
             $('#show_hide_password_confirm_new_password i').addClass( "fa-eye" );
@@ -119,7 +119,7 @@ $(document).ready(function() {
 
     // Fonction JavaScript pour ajuster la hauteur des textarea au chargement de la page
     window.addEventListener('DOMContentLoaded', function() {
-        var textareas = document.querySelectorAll('p[readonly]');
+        let textareas = document.querySelectorAll('p[readonly]');
         textareas.forEach(function(textarea) {
             adjustTextareaHeight(textarea);
         });
@@ -165,7 +165,7 @@ const compare = function(ids, asc){
 
   /* Scroll to the top BEGIN */
     window.addEventListener('scroll', function() {
-        var button = document.querySelector('.back-to-top');
+        let button = document.querySelector('.back-to-top');
         if (window.pageYOffset > 100) {
           button.style.display = 'block';
         } else {

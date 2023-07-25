@@ -59,7 +59,7 @@ $numberofCategories = new CategoriesListing();
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Se déconnecter</a></li>
+                  <li><a class="dropdown-item text-danger" href="logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Se déconnecter</a></li>
               </ul>
             </li>
           <?php endif ?>

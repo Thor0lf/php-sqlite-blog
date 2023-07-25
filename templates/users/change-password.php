@@ -41,6 +41,7 @@ $changePassword->processForm();
                             <input type="password" name="password" class="form-control" placeholder="Nouveau mot de passe">
                             <span class="input-group-text"><a href="" tabindex="98"><i class="fa fa-eye-slash" aria-hidden="true"></i></a></span>
                         </div>
+                        <div class="form-text text-danger">Minimum 1 majuscule, 1 minuscule, 1 chiffre et 1 symbole.</div>
                     </div>
                     <div class="form-group mb-3">
                         <div class="input-group" id="show_hide_password_confirm_new_password">
